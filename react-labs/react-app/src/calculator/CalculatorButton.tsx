@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-export default function CalculatorButton() {
-	function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
-		console.log(`The value is ${event.currentTarget.textContent}`)
-	}
+interface CalculatorButtonProps {
+	label: string;
 
-	return (
-		<button onClick={handleButtonClick}>5</button>
-	)
+	/**
+	 * type a function:
+	 * (arg1: type, arg2: type) => returnType
+	 * void is a special return type to indicate that the return type is irrelevant
+	 */
+	onButtonClick: (label: string) => void;
+}
+
+export default function CalculatorButton({ label, onButtonClick }: CalculatorButtonProps) {
+	return <button onClick={() => onButtonClick(label)}>{label}</button>;
 }

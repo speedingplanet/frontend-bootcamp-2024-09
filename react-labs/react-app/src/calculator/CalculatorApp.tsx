@@ -6,21 +6,33 @@ import './calculator.css';
 function CalculatorApp() {
 	const [displayValue, setDisplayValue] = useState('');
 
-	function handleCalculatorButtonClick(event: React.MouseEvent<HTMLDivElement>) {
-		setDisplayValue(displayValue + event.currentTarget.textContent)
+	function handleCalculatorButtonClick(label: string) {
+		setDisplayValue(displayValue + label);
 	}
 
 	return (
 		// section>div.display+div.button
 		<section className="calculator-root">
 			<div className="display">
-				<CalculatorDisplay value={displayValue}/>
+				<CalculatorDisplay value={displayValue} />
 			</div>
-			<div
-				className="button"
-				onClick={handleCalculatorButtonClick}
-			>
-				<CalculatorButton />
+			<div className="button">
+				<CalculatorButton
+					label="5"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+				<CalculatorButton
+					label="6"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+				<CalculatorButton
+					label="7"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+				<CalculatorButton
+					label="8"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
 			</div>
 		</section>
 	);
