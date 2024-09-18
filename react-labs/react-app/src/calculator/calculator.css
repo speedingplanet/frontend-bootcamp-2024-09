@@ -10,10 +10,10 @@
 	grid-column: 1 / 5;
 }
 
-.button {
-	border: 2px green dashed;
+.active-button {
+	background-color: green;
 }
 
-.button.zero {
+.zero {
 	grid-column: 1 / 3;
 }

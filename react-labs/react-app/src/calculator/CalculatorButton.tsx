@@ -1,8 +1,7 @@
 import React from 'react';
 
-interface CalculatorButtonProps {
+interface CalculatorButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 	label: string;
-
 	/**
 	 * type a function:
 	 * (arg1: type, arg2: type) => returnType
@@ -11,6 +10,17 @@ interface CalculatorButtonProps {
 	onButtonClick: (label: string) => void;
 }
 
-export default function CalculatorButton({ label, onButtonClick }: CalculatorButtonProps) {
-	return <button onClick={() => onButtonClick(label)}>{label}</button>;
+export default function CalculatorButton({
+	label,
+	onButtonClick,
+	...props
+}: CalculatorButtonProps) {
+	return (
+		<button
+			{...props}
+			onClick={() => onButtonClick(label)}
+		>
+			{label}
+		</button>
+	);
 }

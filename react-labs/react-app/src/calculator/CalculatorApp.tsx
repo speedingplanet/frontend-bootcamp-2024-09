@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import CalculatorButton from './CalculatorButton';
 import CalculatorDisplay from './CalculatorDisplay';
 import './calculator.css';
@@ -12,7 +13,8 @@ Equals or operator or clear
 TODO:
 - Does not handle entering more than one operator
 - Does not handle hitting = more than once
-
+- Better logic for highlighting the current operator
+	- Better display as well
 */
 
 function CalculatorApp() {
@@ -85,19 +87,20 @@ function CalculatorApp() {
 			<div>
 				<CalculatorButton
 					label="+/-"
-					onButtonClick={()=>{}}
+					onButtonClick={() => {}}
 				/>
 			</div>
 			<div>
 				<CalculatorButton
 					label="%"
-					onButtonClick={()=>{}}
+					onButtonClick={() => {}}
 				/>
 			</div>
 			<div>
 				<CalculatorButton
 					label="/"
 					onButtonClick={handleOperator}
+					className={classNames({'active-button': operationStack[1] === '/'})}
 				/>
 			</div>
 			<div>
@@ -122,6 +125,7 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="*"
 					onButtonClick={handleOperator}
+					className={classNames({'active-button': operationStack[1] === '*'})}
 				/>
 			</div>
 			<div>
@@ -146,6 +150,7 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="-"
 					onButtonClick={handleOperator}
+					className={classNames({'active-button': operationStack[1] === '-'})}
 				/>
 			</div>
 			<div>
@@ -169,10 +174,11 @@ function CalculatorApp() {
 			<div>
 				<CalculatorButton
 					label="+"
+					className={classNames({'active-button': operationStack[1] === '+'})}
 					onButtonClick={handleOperator}
 				/>
 			</div>
-			<div className="button zero">
+			<div className="zero">
 				<CalculatorButton
 					label="0"
 					onButtonClick={handleCalculatorButtonClick}
@@ -187,7 +193,7 @@ function CalculatorApp() {
 			<div>
 				<CalculatorButton
 					label="."
-					onButtonClick={()=>{}}
+					onButtonClick={() => {}}
 				/>
 			</div>
 		</section>
