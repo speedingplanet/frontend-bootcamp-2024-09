@@ -1,11 +1,19 @@
 .calculator-root {
 	border: 4px black solid;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: repeat(6, 1fr);
 }
 
 .display {
 	border: 2px red dotted;
+	grid-column: 1 / 5;
 }
 
 .button {
 	border: 2px green dashed;
+}
+
+.button.zero {
+	grid-column: 1 / 3;
 }

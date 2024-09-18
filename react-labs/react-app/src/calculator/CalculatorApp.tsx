@@ -76,70 +76,118 @@ function CalculatorApp() {
 			<div className="display">
 				<CalculatorDisplay value={displayValue} />
 			</div>
-			<div className="button">
-				<CalculatorButton
-					label="0"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="1"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="2"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="3"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="4"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="5"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="6"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="7"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="8"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
-				<CalculatorButton
-					label="9"
-					onButtonClick={handleCalculatorButtonClick}
-				/>
+			<div>
 				<CalculatorButton
 					label="clear"
 					onButtonClick={clearDisplay}
 				/>
+			</div>
+			<div>
 				<CalculatorButton
-					label="+"
-					onButtonClick={handleOperator}
+					label="+/-"
+					onButtonClick={()=>{}}
 				/>
+			</div>
+			<div>
 				<CalculatorButton
-					label="-"
-					onButtonClick={handleOperator}
+					label="%"
+					onButtonClick={()=>{}}
 				/>
-				<CalculatorButton
-					label="*"
-					onButtonClick={handleOperator}
-				/>
+			</div>
+			<div>
 				<CalculatorButton
 					label="/"
 					onButtonClick={handleOperator}
 				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="7"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="8"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="9"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="*"
+					onButtonClick={handleOperator}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="4"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="5"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="6"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="-"
+					onButtonClick={handleOperator}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="1"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="2"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="3"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="+"
+					onButtonClick={handleOperator}
+				/>
+			</div>
+			<div className="button zero">
+				<CalculatorButton
+					label="0"
+					onButtonClick={handleCalculatorButtonClick}
+				/>
+			</div>
+			<div>
 				<CalculatorButton
 					label="="
 					onButtonClick={handleEquals}
+				/>
+			</div>
+			<div>
+				<CalculatorButton
+					label="."
+					onButtonClick={()=>{}}
 				/>
 			</div>
 		</section>
