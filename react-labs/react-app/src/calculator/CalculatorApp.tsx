@@ -20,40 +20,32 @@ function CalculatorApp() {
 	const [overwrite, setOverwrite] = useState(false);
 	const [operationStack, setOperationStack] = useState<Array<string>>([]);
 
-	function handleCalculatorButtonClick(label: string) {
+	function handleCalculatorButtonClick(buttonValue: string) {
 		if (overwrite) {
 			setOverwrite(false);
-			setDisplayValue(label);
+			setDisplayValue(buttonValue);
 		} else {
-			setDisplayValue(displayValue + label);
+			setDisplayValue(displayValue + buttonValue);
 		}
 	}
 
 	function clearDisplay() {
+		// TODO: Should we invoke setOverwrite here?
 		setDisplayValue('');
 		setOperationStack([]);
 	}
 
 	function handleOperator(operator: string) {
-		// Add displayValue and operator to the stack
-		// Set overwrite to true
-
 		if (operationStack.length > 0) {
 			let [lValue, previousOperator] = operationStack;
 			let result = calculate(Number(lValue), previousOperator, Number(displayValue));
-			setDisplayValue(result + '');
-			setOperationStack([result + '', operator])
+			setDisplayValue(result + ''); // Converts result to a String
+			setOperationStack([result + '', operator]);
 			setOverwrite(true);
-
 		} else {
-
-			setOperationStack([...operationStack, displayValue, operator]);
+			setOperationStack([displayValue, operator]);
 			setOverwrite(true);
 		}
-
-		// If the stack has a length, evaluate (stack[0] stack[1] displayValue)
-		// Set the displayValue to the result
-		// Store the result and the operator in the stack
 	}
 
 	function handleEquals() {
@@ -65,7 +57,6 @@ function CalculatorApp() {
 	}
 
 	function calculate(lValue: number, operator: string, rValue: number): number {
-
 		switch (operator) {
 			case '+':
 				return lValue + rValue;
