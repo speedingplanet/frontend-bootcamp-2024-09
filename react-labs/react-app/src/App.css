@@ -5,6 +5,14 @@
 	gap: 1em;
 }
 
+.flatnav a:not(.active) {
+	text-decoration: none;
+}
+
+.active {
+	font-weight: bold;
+}
+
 main {
 	padding: min(10px, 1vh) min(5px, 1vw);
 }
