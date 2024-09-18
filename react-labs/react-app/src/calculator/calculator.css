@@ -1,0 +1,11 @@
+.calculator-root {
+	border: 4px black solid;
+}
+
+.display {
+	border: 2px red dotted;
+}
+
+.button {
+	border: 2px green dashed;
+}
