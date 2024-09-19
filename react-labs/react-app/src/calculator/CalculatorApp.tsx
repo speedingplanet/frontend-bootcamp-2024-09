@@ -7,9 +7,16 @@ import './calculator.css';
 import { mathOperators, LabelValues, MathOperator, OperationStack } from './calculator-types';
 
 function CalculatorApp() {
+	// Controls what displays in CalculatorDisplay
 	const [displayValue, setDisplayValue] = useState('');
+
+	// Should we wipe out the display with the next input, or concatenate onto it?
 	const [overwrite, setOverwrite] = useState(false);
+
+	// The lValue and operator of an equation
 	const [operationStack, setOperationStack] = useState<OperationStack | null>();
+
+	// Prevent double operators in operationStack
 	const [wasOperator, setWasOperator] = useState(false);
 	// console.log(`displayValue: ${displayValue}`)
 
@@ -44,7 +51,7 @@ function CalculatorApp() {
 		} else {
 			let [lValue, previousOperator] = operationStack;
 
-			let result = calculate(Number(lValue), previousOperator, Number(displayValue));
+			let result = calculate(lValue, previousOperator, Number(displayValue));
 			setDisplayValue(result + ''); // Converts result to a String
 			setOperationStack([result, operator]);
 			setOverwrite(true);

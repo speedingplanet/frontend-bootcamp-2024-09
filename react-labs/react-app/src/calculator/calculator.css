@@ -44,7 +44,6 @@
 	/* 
 	Overly complicated, but allows the hover value to always be relative to the
 	un-hovered value. Unfortunately, cannot get the background-color value live.
-
 	*/
 	background-color: rgb(
 		calc(var(--bg-number) + var(--bg-adjust)) calc(var(--bg-number) + var(--bg-adjust))
@@ -93,7 +92,7 @@
 	grid-column: 1 / 3;
 }
 
-.disabled {
+.calculator-button:disabled {
 	/* Inspired by Bootstrap */
 	pointer-events: none;
   filter: none;

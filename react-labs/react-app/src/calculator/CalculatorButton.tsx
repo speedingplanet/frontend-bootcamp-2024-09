@@ -21,7 +21,7 @@ export default function CalculatorButton({
 	return (
 		<button
 			{...props}
-			className={classNames(className, 'calculator-button', { disabled: props.disabled })}
+			className={classNames(className, 'calculator-button'	)}
 			onClick={() => onButtonClick(label)}
 		>
 			{label}
