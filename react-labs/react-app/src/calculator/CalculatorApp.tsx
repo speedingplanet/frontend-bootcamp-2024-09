@@ -33,12 +33,14 @@ function CalculatorApp() {
 	}
 
 	function clearDisplay() {
+		// TODO: What if one dispatch instead of three?
 		dispatch({ type: 'setDisplayValue', payload: '0' });
 		dispatch({ type: 'setOperationStack', payload: null });
 		dispatch({ type: 'setOverwrite', payload: true });
 	}
 
 	function handleOperator(operator: MathOperator) {
+		// TODO: How much of this can be known by the reducer?
 		if (!currentState.operationStack) {
 			dispatch({
 				type: 'setOperationStack',

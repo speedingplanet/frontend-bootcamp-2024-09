@@ -22,9 +22,9 @@ describe('CalculatorButton tests', () => {
 			/>
 		);
 
+		// let button = screen.getByText(testLabel);
 		let button = screen.getByRole('button');
 		expect(button.textContent).toBe(testLabel);
-		
 	});
 
 	test('Emits event with label value', async () => {
@@ -38,8 +38,12 @@ describe('CalculatorButton tests', () => {
 			/>
 		);
 
+		// Check your assumptions: no one has invoked the handler yet
 		expect(mockEventHandler).not.toHaveBeenCalled();
-		await user.click(screen.getByText(testLabel));
+
+		// Fire an event from the user
+		await user.click(screen.getByRole('button'));
+
 		expect(mockEventHandler).toHaveBeenCalled();
 		expect(mockEventHandler).toHaveBeenCalledWith(testLabel);
 	});
