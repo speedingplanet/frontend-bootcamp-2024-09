@@ -1,19 +1,101 @@
 .calculator-root {
 	border: 4px black solid;
+
+	/* Make sure it doesn't shrink below a point */
+	height: max(350px, min(500px, 50vh));
+	width: max(450px, min(650px, 75vw));
+	font-size: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-rows: repeat(6, 1fr);
+
+	/* CSS Custom Properties  */
+	--bg-number: 88;
+	--bg-special: 33;
+	--bg-adjust: 20;
+}
+
+.calculator-button {
+	width: max(75px, 100%);
+	height: 100%;
+	min-height: fit-content;
+	color: white;
+	font-size: 200%;
+	border: 1px black solid;
+}
+
+.number {
+	/* 
+	This would be easy to do with hard-coded values; we want to demonstrate 
+	CSS custom properties in color values
+	*/
+	background-color: rgb(var(--bg-number) var(--bg-number) var(--bg-number));
+}
+
+.operator {
+	background-color: orange;
+}
+
+.special {
+	background-color: rgb(var(--bg-special) var(--bg-special) var(--bg-special));
+}
+
+.number:hover {
+	/* 
+	Overly complicated, but allows the hover value to always be relative to the
+	un-hovered value. Unfortunately, cannot get the background-color value live.
+
+	*/
+	background-color: rgb(
+		calc(var(--bg-number) + var(--bg-adjust)) calc(var(--bg-number) + var(--bg-adjust))
+			calc(var(--bg-number) + var(--bg-adjust))
+	);
+}
+
+.special:hover {
+	background-color: rgb(
+		calc(var(--bg-special) + var(--bg-adjust)) calc(var(--bg-special) + var(--bg-adjust))
+			calc(var(--bg-special) + var(--bg-adjust))
+	);
+}
+
+.operator:hover {
+	/* 
+	Demonstrating the "color from" syntax, creating a color 
+	relative to a color name
+	*/
+	background-color: rgb(
+		from orange calc(r + var(--bg-adjust)) calc(g + var(--bg-adjust)) calc(b + var(--bg-adjust))
+	);
 }
 
 .display {
-	border: 2px red dotted;
 	grid-column: 1 / 5;
+	font-size: 200%;
+
+	/* Could have used "padding-right" but this will respect RTL/LTR settings */
+	padding-inline-end: 0.5em;
+
+	/* Similarly, could use "right" but this respects RTL/LTR settings */
+	text-align: end;
+
+	/* Center the readout vertically*/
+	display: flex;
+	align-items: center;
+	justify-content: end;
 }
 
-.active-button {
+.calculator-button.active-button {
 	background-color: green;
 }
 
 .zero {
 	grid-column: 1 / 3;
+}
+
+.disabled {
+	/* Inspired by Bootstrap */
+	pointer-events: none;
+  filter: none;
+  opacity: 0.65;
 }

@@ -5,5 +5,5 @@ interface CalculatorDisplayProps {
 }
 
 export default function CalculatorDisplay({ value }: CalculatorDisplayProps) {
-	return <div>{value || 0}</div>;
+	return <span data-testid="test-display">{value || 0}</span>;
 }
