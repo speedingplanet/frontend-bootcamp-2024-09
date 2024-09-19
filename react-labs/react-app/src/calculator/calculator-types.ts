@@ -10,6 +10,6 @@ enum MathOperator {
 	*/
 
 export const mathOperators = ['+', '-', '*', '/'] as const;
-export type MathOperator = typeof mathOperators[number];
+export type MathOperator = (typeof mathOperators)[number];
 export type OperationStack = [number, MathOperator];
 export type LabelValues = MathOperator | string;

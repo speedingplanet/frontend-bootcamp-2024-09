@@ -95,6 +95,6 @@
 .calculator-button:disabled {
 	/* Inspired by Bootstrap */
 	pointer-events: none;
-  filter: none;
-  opacity: 0.65;
+	filter: none;
+	opacity: 0.65;
 }

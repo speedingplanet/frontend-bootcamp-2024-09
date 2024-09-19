@@ -13,6 +13,20 @@ describe('CalculatorButton tests', () => {
 		);
 	});
 
+	test('Label renders correctly', () => {
+		let testLabel = '5';
+		render(
+			<CalculatorButton
+				label={testLabel}
+				onButtonClick={() => {}}
+			/>
+		);
+
+		let button = screen.getByRole('button');
+		expect(button.textContent).toBe(testLabel);
+		
+	});
+
 	test('Emits event with label value', async () => {
 		let testLabel = '10';
 		let mockEventHandler = jest.fn();

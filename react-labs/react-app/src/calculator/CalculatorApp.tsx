@@ -34,22 +34,25 @@ function CalculatorApp() {
 
 	function clearDisplay() {
 		dispatch({ type: 'setDisplayValue', payload: '0' });
-		dispatch({type: 'setOperationStack', payload: null});
+		dispatch({ type: 'setOperationStack', payload: null });
 		dispatch({ type: 'setOverwrite', payload: true });
 	}
 
 	function handleOperator(operator: MathOperator) {
 		if (!currentState.operationStack) {
-			dispatch({type: 'setOperationStack', payload: [Number(currentState.displayValue), operator]});
+			dispatch({
+				type: 'setOperationStack',
+				payload: [Number(currentState.displayValue), operator],
+			});
 			dispatch({ type: 'setOverwrite', payload: true });
 		} else if (currentState.wasOperator) {
-			dispatch({type: 'setOperationStack', payload: [currentState.operationStack[0], operator]});
+			dispatch({ type: 'setOperationStack', payload: [currentState.operationStack[0], operator] });
 		} else {
 			let [lValue, previousOperator] = currentState.operationStack;
 
 			let result = calculate(lValue, previousOperator, Number(currentState.displayValue));
 			dispatch({ type: 'setDisplayValue', payload: result + '' });
-			dispatch({type: 'setOperationStack', payload: [result, operator]});
+			dispatch({ type: 'setOperationStack', payload: [result, operator] });
 			dispatch({ type: 'setOverwrite', payload: true });
 			dispatch({ type: 'setWasOperator', payload: true });
 		}
@@ -67,7 +70,7 @@ function CalculatorApp() {
 		if (currentState.operationStack) {
 			let [lValue, operator] = currentState.operationStack;
 			let result = calculate(Number(lValue), operator, Number(currentState.displayValue));
-			dispatch({type: 'setOperationStack', payload: (null)});
+			dispatch({ type: 'setOperationStack', payload: null });
 			dispatch({ type: 'setDisplayValue', payload: result + '' });
 			dispatch({ type: 'setOverwrite', payload: true });
 			// console.log(`equals ${result}`)
