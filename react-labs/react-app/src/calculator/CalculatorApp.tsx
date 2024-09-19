@@ -11,8 +11,8 @@ const initialState: CalculatorState = {
 	overwrite: false,
 	wasOperator: false,
 	operationStack: null,
-	displayValue: ''
-}
+	displayValue: '',
+};
 
 function CalculatorApp() {
 	const [currentState, dispatch] = useReducer(reducer, initialState);
@@ -28,43 +28,44 @@ function CalculatorApp() {
 		if (mathOperators.includes(buttonValue as MathOperator)) {
 			handleOperator(buttonValue as MathOperator);
 		} else if (typeof buttonValue === 'string') {
-			dispatch({type: 'setWasOperator', payload: false})
+			dispatch({ type: 'setWasOperator', payload: false });
 			if (currentState.overwrite) {
-				dispatch({type: 'setOverwrite', payload: false})
-				setDisplayValue(buttonValue);
+				dispatch({ type: 'setOverwrite', payload: false });
+				dispatch({ type: 'setDisplayValue', payload: buttonValue });
 			} else {
-				setDisplayValue(displayValue + buttonValue);
+				dispatch({ type: 'updateDisplayValue', payload: buttonValue });
 			}
 		}
 	}
 
 	function clearDisplay() {
-		setDisplayValue('0');
+		dispatch({ type: 'setDisplayValue', payload: '0' });
 		setOperationStack(null);
-		dispatch({type: 'setOverwrite', payload: true})
+		dispatch({ type: 'setOverwrite', payload: true });
 	}
 
 	function handleOperator(operator: MathOperator) {
 		if (!operationStack) {
-			setOperationStack([Number(displayValue), operator]);
-			dispatch({type: 'setOverwrite', payload: true})
+			setOperationStack([Number(currentState.displayValue), operator]);
+			dispatch({ type: 'setOverwrite', payload: true });
 		} else if (currentState.wasOperator) {
 			setOperationStack([operationStack[0], operator]);
 		} else {
 			let [lValue, previousOperator] = operationStack;
 
-			let result = calculate(lValue, previousOperator, Number(displayValue));
-			setDisplayValue(result + ''); // Converts result to a String
+			let result = calculate(lValue, previousOperator, Number(currentState.displayValue));
+			dispatch({ type: 'setDisplayValue', payload: result + '' });
 			setOperationStack([result, operator]);
-			dispatch({type: 'setOverwrite', payload: true})
-			dispatch({type: 'setWasOperator', payload: true})
+			dispatch({ type: 'setOverwrite', payload: true });
+			dispatch({ type: 'setWasOperator', payload: true });
 		}
 	}
 
 	function handleDecimalPoint() {
-		if (displayValue.length === 0) {
+		if (currentState.displayValue.length === 0) {
+			dispatch({ type: 'setDisplayValue', payload: '0.' });
 			setDisplayValue('0.');
-		} else if (!displayValue.includes('.')) {
+		} else if (!currentState.displayValue.includes('.')) {
 			handleCalculatorButtonClick('.');
 		}
 	}
@@ -72,10 +73,10 @@ function CalculatorApp() {
 	function handleEquals() {
 		if (operationStack) {
 			let [lValue, operator] = operationStack;
-			let result = calculate(Number(lValue), operator, Number(displayValue));
+			let result = calculate(Number(lValue), operator, Number(currentState.displayValue));
 			setOperationStack(null);
-			setDisplayValue(result + '');
-			dispatch({type: 'setOverwrite', payload: true})
+			dispatch({ type: 'setDisplayValue', payload: result + '' });
+			dispatch({ type: 'setOverwrite', payload: true });
 			// console.log(`equals ${result}`)
 		}
 	}
@@ -98,7 +99,7 @@ function CalculatorApp() {
 		// section>div.display+div.button
 		<section className="calculator-root">
 			<div className="display">
-				<CalculatorDisplay value={displayValue} />
+				<CalculatorDisplay value={currentState.displayValue} />
 			</div>
 			<div>
 				<CalculatorButton
