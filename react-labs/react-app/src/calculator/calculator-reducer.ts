@@ -18,10 +18,11 @@ export interface CalculatorState {
 }
 
 type CalculatorAction =
-	| { type: 'setOverwrite', payload: boolean }
-	| { type: 'setWasOperator', payload: boolean }
+	| { type: 'setOverwrite'; payload: boolean }
+	| { type: 'setWasOperator'; payload: boolean }
 	| { type: 'setDisplayValue'; payload: string }
-	| { type: 'updateDisplayValue'; payload: string };
+	| { type: 'updateDisplayValue'; payload: string }
+	| { type: 'setOperationStack'; payload: OperationStack | null };
 
 export function reducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
 	switch (action.type) {
@@ -33,5 +34,9 @@ export function reducer(state: CalculatorState, action: CalculatorAction): Calcu
 			return { ...state, displayValue: action.payload };
 		case 'updateDisplayValue':
 			return { ...state, displayValue: state.displayValue + action.payload };
+		case 'setOperationStack':
+			return { ...state, operationStack: action.payload };
+		default:
+			throw new Error('unknown action!');
 	}
 }

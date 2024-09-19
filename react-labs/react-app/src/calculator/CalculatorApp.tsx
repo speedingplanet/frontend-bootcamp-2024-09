@@ -1,10 +1,10 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import classNames from 'classnames';
 import { noop } from 'lodash-es';
 import CalculatorButton from './CalculatorButton';
 import CalculatorDisplay from './CalculatorDisplay';
 import './calculator.css';
-import { mathOperators, LabelValues, MathOperator, OperationStack } from './calculator-types';
+import { mathOperators, LabelValues, MathOperator } from './calculator-types';
 import { CalculatorState, reducer } from './calculator-reducer';
 
 const initialState: CalculatorState = {
@@ -16,12 +16,6 @@ const initialState: CalculatorState = {
 
 function CalculatorApp() {
 	const [currentState, dispatch] = useReducer(reducer, initialState);
-
-	// Controls what displays in CalculatorDisplay
-	const [displayValue, setDisplayValue] = useState('');
-
-	// The lValue and operator of an equation
-	const [operationStack, setOperationStack] = useState<OperationStack | null>();
 
 	function handleCalculatorButtonClick(buttonValue: LabelValues) {
 		// Tell TypeScript we think buttonValue is a MathOperator
@@ -40,22 +34,22 @@ function CalculatorApp() {
 
 	function clearDisplay() {
 		dispatch({ type: 'setDisplayValue', payload: '0' });
-		setOperationStack(null);
+		dispatch({type: 'setOperationStack', payload: null});
 		dispatch({ type: 'setOverwrite', payload: true });
 	}
 
 	function handleOperator(operator: MathOperator) {
-		if (!operationStack) {
-			setOperationStack([Number(currentState.displayValue), operator]);
+		if (!currentState.operationStack) {
+			dispatch({type: 'setOperationStack', payload: [Number(currentState.displayValue), operator]});
 			dispatch({ type: 'setOverwrite', payload: true });
 		} else if (currentState.wasOperator) {
-			setOperationStack([operationStack[0], operator]);
+			dispatch({type: 'setOperationStack', payload: [currentState.operationStack[0], operator]});
 		} else {
-			let [lValue, previousOperator] = operationStack;
+			let [lValue, previousOperator] = currentState.operationStack;
 
 			let result = calculate(lValue, previousOperator, Number(currentState.displayValue));
 			dispatch({ type: 'setDisplayValue', payload: result + '' });
-			setOperationStack([result, operator]);
+			dispatch({type: 'setOperationStack', payload: [result, operator]});
 			dispatch({ type: 'setOverwrite', payload: true });
 			dispatch({ type: 'setWasOperator', payload: true });
 		}
@@ -64,17 +58,16 @@ function CalculatorApp() {
 	function handleDecimalPoint() {
 		if (currentState.displayValue.length === 0) {
 			dispatch({ type: 'setDisplayValue', payload: '0.' });
-			setDisplayValue('0.');
 		} else if (!currentState.displayValue.includes('.')) {
 			handleCalculatorButtonClick('.');
 		}
 	}
 
 	function handleEquals() {
-		if (operationStack) {
-			let [lValue, operator] = operationStack;
+		if (currentState.operationStack) {
+			let [lValue, operator] = currentState.operationStack;
 			let result = calculate(Number(lValue), operator, Number(currentState.displayValue));
-			setOperationStack(null);
+			dispatch({type: 'setOperationStack', payload: (null)});
 			dispatch({ type: 'setDisplayValue', payload: result + '' });
 			dispatch({ type: 'setOverwrite', payload: true });
 			// console.log(`equals ${result}`)
@@ -129,7 +122,7 @@ function CalculatorApp() {
 					label="/"
 					onButtonClick={handleCalculatorButtonClick}
 					className={classNames('operator', {
-						'active-button': operationStack && operationStack[1] === '/',
+						'active-button': currentState.operationStack && currentState.operationStack[1] === '/',
 					})}
 				/>
 			</div>
@@ -159,7 +152,7 @@ function CalculatorApp() {
 					label="*"
 					onButtonClick={handleCalculatorButtonClick}
 					className={classNames('operator', {
-						'active-button': operationStack && operationStack[1] === '*',
+						'active-button': currentState.operationStack && currentState.operationStack[1] === '*',
 					})}
 				/>
 			</div>
@@ -189,7 +182,7 @@ function CalculatorApp() {
 					label="-"
 					onButtonClick={handleCalculatorButtonClick}
 					className={classNames('operator', {
-						'active-button': operationStack && operationStack[1] === '-',
+						'active-button': currentState.operationStack && currentState.operationStack[1] === '-',
 					})}
 				/>
 			</div>
@@ -218,7 +211,7 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="+"
 					className={classNames('operator', {
-						'active-button': operationStack && operationStack[1] === '+',
+						'active-button': currentState.operationStack && currentState.operationStack[1] === '+',
 					})}
 					onButtonClick={handleCalculatorButtonClick}
 				/>
