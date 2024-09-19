@@ -74,6 +74,34 @@ describe('CalculatorApp tests', () => {
 
 		expect(display.textContent).toBe('7');
 	});
+
+	test('clears the display', async () => {
+		render(<CalculatorApp />);
+		let twoButton = screen.getByRole('button', { name: '2' });
+		let fiveButton = screen.getByRole('button', { name: '5' });
+		let clearButton = screen.getByRole('button', { name: 'clear' });
+		let display = screen.getByTestId('test-display');
+
+		await act(async () => {
+			await user.click(twoButton);
+		});
+		expect(display.textContent).toBe('2');
+
+		await act(async () => {
+			await user.click(fiveButton);
+		});
+		expect(display.textContent).toBe('25');
+
+		await act(async () => {
+			await user.click(twoButton);
+		});
+		expect(display.textContent).toBe('252');
+
+		await act(async () => {
+			await user.click(clearButton);
+		});
+		expect(display.textContent).toBe('0');
+	});
 });
 
 async function actOnce(user: UserEvent, event: keyof UserEvent, target: HTMLElement) {

@@ -23,39 +23,40 @@ function CalculatorApp() {
 			handleOperator(buttonValue as MathOperator);
 		} else if (typeof buttonValue === 'string') {
 			dispatch({ type: 'setWasOperator', payload: false });
-			if (currentState.overwrite) {
-				dispatch({ type: 'setOverwrite', payload: false });
-				dispatch({ type: 'setDisplayValue', payload: buttonValue });
-			} else {
-				dispatch({ type: 'updateDisplayValue', payload: buttonValue });
-			}
+			dispatch({ type: 'setDisplayValue', payload: buttonValue });
 		}
 	}
 
 	function clearDisplay() {
-		// TODO: What if one dispatch instead of three?
-		dispatch({ type: 'setDisplayValue', payload: '0' });
-		dispatch({ type: 'setOperationStack', payload: null });
-		dispatch({ type: 'setOverwrite', payload: true });
+		dispatch({ type: 'clearDisplay' });
 	}
 
 	function handleOperator(operator: MathOperator) {
-		// TODO: How much of this can be known by the reducer?
+		// No operation or value to operate with, store the display value and the operator
 		if (!currentState.operationStack) {
 			dispatch({
 				type: 'setOperationStack',
 				payload: [Number(currentState.displayValue), operator],
 			});
+
+			// Next button will overwrite the current display value
 			dispatch({ type: 'setOverwrite', payload: true });
 		} else if (currentState.wasOperator) {
+			// Did the user click on an operator again? Replace the previous operator with the current one
 			dispatch({ type: 'setOperationStack', payload: [currentState.operationStack[0], operator] });
 		} else {
+			// There's an lValue, an previousOperator, a displayValue, and the user clicked on a second operator
+			// Execute lValue previousOperator displayValue, then change the stack to [result, operator]
 			let [lValue, previousOperator] = currentState.operationStack;
 
 			let result = calculate(lValue, previousOperator, Number(currentState.displayValue));
-			dispatch({ type: 'setDisplayValue', payload: result + '' });
-			dispatch({ type: 'setOperationStack', payload: [result, operator] });
-			dispatch({ type: 'setOverwrite', payload: true });
+			dispatch({
+				type: 'calculateValues',
+				payload: {
+					result,
+					operator,
+				},
+			});
 			dispatch({ type: 'setWasOperator', payload: true });
 		}
 	}
@@ -72,9 +73,13 @@ function CalculatorApp() {
 		if (currentState.operationStack) {
 			let [lValue, operator] = currentState.operationStack;
 			let result = calculate(Number(lValue), operator, Number(currentState.displayValue));
-			dispatch({ type: 'setOperationStack', payload: null });
-			dispatch({ type: 'setDisplayValue', payload: result + '' });
-			dispatch({ type: 'setOverwrite', payload: true });
+			dispatch({
+				type: 'calculateValues',
+				payload: {
+					result,
+					operator: null,
+				},
+			});
 			// console.log(`equals ${result}`)
 		}
 	}

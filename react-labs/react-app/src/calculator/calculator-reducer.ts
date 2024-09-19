@@ -8,7 +8,7 @@
 	- setOperationStack (payload: operator)
 */
 
-import { OperationStack } from './calculator-types';
+import { MathOperator, OperationStack } from './calculator-types';
 
 export interface CalculatorState {
 	displayValue: string;
@@ -17,12 +17,19 @@ export interface CalculatorState {
 	wasOperator: boolean;
 }
 
-type CalculatorAction =
+export type CalculatorAction =
 	| { type: 'setOverwrite'; payload: boolean }
 	| { type: 'setWasOperator'; payload: boolean }
+	| { type: 'setOperationStack'; payload: OperationStack | null }
 	| { type: 'setDisplayValue'; payload: string }
-	| { type: 'updateDisplayValue'; payload: string }
-	| { type: 'setOperationStack'; payload: OperationStack | null };
+	| { type: 'clearDisplay' }
+	| {
+			type: 'calculateValues';
+			payload: {
+				result: number;
+				operator: MathOperator | null;
+			};
+	  };
 
 export function reducer(state: CalculatorState, action: CalculatorAction): CalculatorState {
 	switch (action.type) {
@@ -30,12 +37,35 @@ export function reducer(state: CalculatorState, action: CalculatorAction): Calcu
 			return { ...state, overwrite: action.payload };
 		case 'setWasOperator':
 			return { ...state, wasOperator: action.payload };
-		case 'setDisplayValue':
-			return { ...state, displayValue: action.payload };
-		case 'updateDisplayValue':
-			return { ...state, displayValue: state.displayValue + action.payload };
+		case 'setDisplayValue': {
+			let nextState = { ...state };
+			if (state.overwrite) {
+				nextState.overwrite = false;
+				nextState.displayValue = action.payload;
+			} else {
+				nextState.displayValue = nextState.displayValue + action.payload;
+			}
+			return nextState;
+		}
 		case 'setOperationStack':
 			return { ...state, operationStack: action.payload };
+		case 'clearDisplay':
+			return { ...state, displayValue: '0', operationStack: null, overwrite: true };
+		case 'calculateValues': {
+			let nextOperationStack: OperationStack | null = [...state.operationStack!];
+			if (action.payload.operator) {
+				nextOperationStack = [action.payload.result, action.payload.operator];
+			} else {
+				nextOperationStack = null;
+			}
+
+			return {
+				...state,
+				displayValue: String(action.payload.result),
+				operationStack: nextOperationStack,
+				overwrite: true,
+			};
+		}
 		default:
 			throw new Error('unknown action!');
 	}
