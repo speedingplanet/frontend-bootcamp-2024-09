@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import classNames from 'classnames';
 import { noop } from 'lodash-es';
 import CalculatorButton from './CalculatorButton';
 import CalculatorDisplay from './CalculatorDisplay';
 import './calculator.css';
 import { mathOperators, LabelValues, MathOperator, OperationStack } from './calculator-types';
+import { CalculatorState, reducer } from './calculator-reducer';
+
+const initialState: CalculatorState = {
+	overwrite: false,
+	wasOperator: false,
+	operationStack: null,
+	displayValue: ''
+}
 
 function CalculatorApp() {
+	const [currentState, dispatch] = useReducer(reducer, initialState);
+
 	// Controls what displays in CalculatorDisplay
 	const [displayValue, setDisplayValue] = useState('');
-
-	// Should we wipe out the display with the next input, or concatenate onto it?
-	const [overwrite, setOverwrite] = useState(false);
 
 	// The lValue and operator of an equation
 	const [operationStack, setOperationStack] = useState<OperationStack | null>();
 
-	// Prevent double operators in operationStack
-	const [wasOperator, setWasOperator] = useState(false);
-	// console.log(`displayValue: ${displayValue}`)
-
 	function handleCalculatorButtonClick(buttonValue: LabelValues) {
-
 		// Tell TypeScript we think buttonValue is a MathOperator
 		if (mathOperators.includes(buttonValue as MathOperator)) {
 			handleOperator(buttonValue as MathOperator);
 		} else if (typeof buttonValue === 'string') {
-			setWasOperator(false);
-			if (overwrite) {
-				setOverwrite(false);
+			dispatch({type: 'setWasOperator', payload: false})
+			if (currentState.overwrite) {
+				dispatch({type: 'setOverwrite', payload: false})
 				setDisplayValue(buttonValue);
 			} else {
 				setDisplayValue(displayValue + buttonValue);
@@ -39,14 +41,14 @@ function CalculatorApp() {
 	function clearDisplay() {
 		setDisplayValue('0');
 		setOperationStack(null);
-		setOverwrite(true);
+		dispatch({type: 'setOverwrite', payload: true})
 	}
 
 	function handleOperator(operator: MathOperator) {
 		if (!operationStack) {
 			setOperationStack([Number(displayValue), operator]);
-			setOverwrite(true);
-		} else if (wasOperator) {
+			dispatch({type: 'setOverwrite', payload: true})
+		} else if (currentState.wasOperator) {
 			setOperationStack([operationStack[0], operator]);
 		} else {
 			let [lValue, previousOperator] = operationStack;
@@ -54,8 +56,8 @@ function CalculatorApp() {
 			let result = calculate(lValue, previousOperator, Number(displayValue));
 			setDisplayValue(result + ''); // Converts result to a String
 			setOperationStack([result, operator]);
-			setOverwrite(true);
-			setWasOperator(true);
+			dispatch({type: 'setOverwrite', payload: true})
+			dispatch({type: 'setWasOperator', payload: true})
 		}
 	}
 
@@ -73,7 +75,7 @@ function CalculatorApp() {
 			let result = calculate(Number(lValue), operator, Number(displayValue));
 			setOperationStack(null);
 			setDisplayValue(result + '');
-			setOverwrite(true);
+			dispatch({type: 'setOverwrite', payload: true})
 			// console.log(`equals ${result}`)
 		}
 	}
@@ -125,7 +127,9 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="/"
 					onButtonClick={handleCalculatorButtonClick}
-					className={classNames('operator', { 'active-button': operationStack && operationStack[1] === '/' })}
+					className={classNames('operator', {
+						'active-button': operationStack && operationStack[1] === '/',
+					})}
 				/>
 			</div>
 			<div>
@@ -153,7 +157,9 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="*"
 					onButtonClick={handleCalculatorButtonClick}
-					className={classNames('operator', { 'active-button': operationStack && operationStack[1] === '*' })}
+					className={classNames('operator', {
+						'active-button': operationStack && operationStack[1] === '*',
+					})}
 				/>
 			</div>
 			<div>
@@ -181,7 +187,9 @@ function CalculatorApp() {
 				<CalculatorButton
 					label="-"
 					onButtonClick={handleCalculatorButtonClick}
-					className={classNames('operator', { 'active-button': operationStack && operationStack[1] === '-' })}
+					className={classNames('operator', {
+						'active-button': operationStack && operationStack[1] === '-',
+					})}
 				/>
 			</div>
 			<div>
@@ -208,7 +216,9 @@ function CalculatorApp() {
 			<div>
 				<CalculatorButton
 					label="+"
-					className={classNames('operator', { 'active-button': operationStack && operationStack[1] === '+' })}
+					className={classNames('operator', {
+						'active-button': operationStack && operationStack[1] === '+',
+					})}
 					onButtonClick={handleCalculatorButtonClick}
 				/>
 			</div>
