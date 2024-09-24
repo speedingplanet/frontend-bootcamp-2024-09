@@ -10,7 +10,7 @@ function fetchAllCountriesPromise() {
 			}
 		})
 		.catch((error) => {
-			console.error('countries-dao: Erorr:', error);
+			console.error('countries-dao: Error:', error);
 			throw error;
 		});
 }
@@ -25,7 +25,7 @@ async function fetchAllCountries() {
 			throw Error(`Bad response: ${response.status}`);
 		}
 	} catch (error) {
-		console.error('countries-dao: Erorr:', error);
+		console.error('countries-dao: Error:', error);
 		throw error;
 	}
 }

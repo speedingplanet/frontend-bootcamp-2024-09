@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Country } from '../demo-types';
 
+async function getData() {
+	let url = 'http://localhost:8000/countries?';
+	/*
+	Normally, async-await should be in a try-catch block, but we will
+	catch any errors externally to this function.
+	*/
+	let response = await fetch(url);
+
+	if (response.ok) {
+		let results = await response.json();
+		return results;
+	} else {
+		throw new Error(`Bad response: ${response.status}`);
+	}
+}
+
 function AsyncAwait() {
 	const [countries, setCountries] = useState<Country[]>([]);
 	const [refresh, setRefresh] = useState(0);
@@ -9,26 +25,14 @@ function AsyncAwait() {
 	// Pass it a function to run and a list of dependencies
 	// One-time data request
 	useEffect(() => {
-		async function getData() {
-			let url = 'http://localhost:8000/countries';
-			/*
-			Normally, async-await should be in a try-catch block, but we will
-			catch any errors externally to this function.
-			*/
-			let response = await fetch(url);
-
-			if (response.ok) {
-				let results = await response.json();
-				setCountries(results);
-			} else {
-				throw new Error(`Bad response: ${response.status}`);
-			}
-		}
-
 		// Errors are handled here
-		getData().catch((error) => {
-			console.error('async-await: Could not fetch data:', error);
-		});
+		getData()
+			.then((requestedCountries) => {
+				setCountries(requestedCountries);
+			})
+			.catch((error) => {
+				console.error('async-await: Could not fetch data:', error);
+			});
 
 		return function () {
 			console.log('useEffect finished');
