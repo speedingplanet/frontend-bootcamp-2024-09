@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import AddTask from './AddTask';
-import TaskList from './TaskList';
-import { Task } from '../tasks';
+import AddTodo from './AddTodo';
+import TodoList from './TodoList';
+import { Todo } from '../todos';
 
 let nextId = 4;
-const initialTasks: Array<Task> = [
+const initialTodos: Array<Todo> = [
 	{ id: 1, text: 'Groceries', done: false },
 	{ id: 2, text: 'Change oil', done: true },
 	{ id: 3, text: 'Clean kitchen table', done: false },
 ];
 
 const TodosContainer = () => {
-	const [tasks, setTasks] = useState(initialTasks);
+	const [todos, setTodos] = useState(initialTodos);
 
-	const handleAddTask = (text: string) => {
-		setTasks([
-			...tasks,
+	const handleAddTodo = (text: string) => {
+		setTodos([
+			...todos,
 			{
 				id: nextId++,
 				text: text,
@@ -24,11 +24,11 @@ const TodosContainer = () => {
 		]);
 	};
 
-	const handleChangeTask = (task: Task) => {
-		setTasks(
-			tasks.map((t) => {
-				if (t.id === task.id) {
-					return task;
+	const handleChangeTodo = (todo: Todo) => {
+		setTodos(
+			todos.map((t) => {
+				if (t.id === todo.id) {
+					return todo;
 				} else {
 					return t;
 				}
@@ -36,8 +36,8 @@ const TodosContainer = () => {
 		);
 	};
 
-	const handleDeleteTask = (taskId: number) => {
-		setTasks(tasks.filter((t) => t.id !== taskId));
+	const handleDeleteTodo = (todoId: number) => {
+		setTodos(todos.filter((t) => t.id !== todoId));
 	};
 
 	return (
@@ -47,11 +47,11 @@ const TodosContainer = () => {
 					<h3>Todos (plain version)</h3>
 				</div>
 			</header>
-			<AddTask onAddTask={handleAddTask} />
-			<TaskList
-				tasks={tasks}
-				onChangeTask={handleChangeTask}
-				onDeleteTask={handleDeleteTask}
+			<AddTodo onAddTodo={handleAddTodo} />
+			<TodoList
+				todos={todos}
+				onChangeTodo={handleChangeTodo}
+				onDeleteTodo={handleDeleteTodo}
 			/>
 		</section>
 	);

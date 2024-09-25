@@ -1,6 +1,6 @@
-import { InputTask } from '../tasks';
+import { InputTodo } from '../todos';
 
-let baseUrl = 'http://localhost:8000/tasks';
+let baseUrl = 'http://localhost:8000/todos';
 
 async function fetchTodos() {
 	try {
@@ -17,16 +17,16 @@ async function fetchTodos() {
 	}
 }
 
-async function saveTodo(task: InputTask) {
+async function saveTodo(todo: InputTodo) {
 	try {
 		let response = await fetch(baseUrl, {
 			method: 'post',
-			body: JSON.stringify(task),
+			body: JSON.stringify(todo),
 			headers: { 'Content-type': 'application/json' },
 		});
 		if (response.ok) {
 			let results = await response.json();
-			return { ...results, ...task };
+			return { ...results, ...todo };
 		} else {
 			throw Error(`Bad response: ${response.status}`);
 		}

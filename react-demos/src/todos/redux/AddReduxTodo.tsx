@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import { useTodosDispatch } from './todos-hooks';
+import { saveTodo } from './todos-slice';
 
-interface AddTaskProps {
-	onAddTask: (text: string) => void;
-}
-
-export default function AddTask({ onAddTask }: AddTaskProps) {
+export default function AddTodo() {
 	const [text, setText] = useState('');
+	const dispatch = useTodosDispatch();
+
 	return (
 		<div className="row mb-4">
 			<div className="col">
 				<input
-					placeholder="Add task"
+					placeholder="Add todo"
 					className="form-control"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
@@ -20,8 +20,8 @@ export default function AddTask({ onAddTask }: AddTaskProps) {
 				<button
 					className="btn btn-primary btn-small"
 					onClick={() => {
-						onAddTask(text);
 						setText('');
+						dispatch(saveTodo(text));
 					}}
 				>
 					Add

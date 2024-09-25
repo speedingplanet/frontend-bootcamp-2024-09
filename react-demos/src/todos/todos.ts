@@ -1,10 +1,10 @@
-export interface Task {
+export interface Todo {
 	id: number;
 	text: string;
 	done: boolean;
 }
 
-export type InputTask = Omit<Task, 'id'>;
+export type InputTodo = Omit<Todo, 'id'>;
 
 export interface AddAction {
 	type: 'todos/add';
@@ -13,12 +13,12 @@ export interface AddAction {
 
 export interface EditAction {
 	type: 'todos/change';
-	task: Task;
+	todo: Todo;
 }
 
 export interface DeleteAction {
 	type: 'todos/delete';
-	taskId: number;
+	todoId: number;
 }
 
 // Discriminated union: https://mkosir.github.io/typescript-style-guide/#discriminated-union

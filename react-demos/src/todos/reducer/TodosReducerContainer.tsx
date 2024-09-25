@@ -1,16 +1,16 @@
 import React, { Reducer, useReducer } from 'react';
-import AddTask from '../plain/AddTask';
-import TaskList from '../plain/TaskList';
-import { Task, TodoAction } from '../tasks';
+import AddTodo from '../plain/AddTodo';
+import TodoList from '../plain/TodoList';
+import { Todo, TodoAction } from '../todos';
 
 let nextId = 4;
-const initialTasks: Array<Task> = [
+const initialTodos: Array<Todo> = [
 	{ id: 1, text: 'Groceries', done: false },
 	{ id: 2, text: 'Change oil', done: true },
 	{ id: 3, text: 'Clean kitchen table', done: false },
 ];
 
-const reducer: Reducer<Array<Task>, TodoAction> = (state, action) => {
+const reducer: Reducer<Array<Todo>, TodoAction> = (state, action) => {
 	switch (action.type) {
 		case 'todos/add':
 			return [
@@ -23,21 +23,21 @@ const reducer: Reducer<Array<Task>, TodoAction> = (state, action) => {
 			];
 		case 'todos/change':
 			return state.map((t) => {
-				if (t.id === action.task.id) {
-					return action.task;
+				if (t.id === action.todo.id) {
+					return action.todo;
 				} else {
 					return t;
 				}
 			});
 		case 'todos/delete':
-			return state.filter((t) => t.id !== action.taskId);
+			return state.filter((t) => t.id !== action.todoId);
 		default:
 			throw Error(`No case found!`);
 	}
 };
 
 const TodosReducerContainer = () => {
-	const [tasks, dispatch] = useReducer(reducer, initialTasks);
+	const [todos, dispatch] = useReducer(reducer, initialTodos);
 
 	return (
 		<section>
@@ -46,11 +46,11 @@ const TodosReducerContainer = () => {
 					<h3>Todos (reducer version)</h3>
 				</div>
 			</header>
-			<AddTask onAddTask={(text) => dispatch({ type: 'todos/add', text })} />
-			<TaskList
-				tasks={tasks}
-				onChangeTask={(task) => dispatch({ type: 'todos/change', task })}
-				onDeleteTask={(taskId) => dispatch({ type: 'todos/delete', taskId })}
+			<AddTodo onAddTodo={(text) => dispatch({ type: 'todos/add', text })} />
+			<TodoList
+				todos={todos}
+				onChangeTodo={(todo) => dispatch({ type: 'todos/change', todo })}
+				onDeleteTodo={(todoId) => dispatch({ type: 'todos/delete', todoId })}
 			/>
 		</section>
 	);

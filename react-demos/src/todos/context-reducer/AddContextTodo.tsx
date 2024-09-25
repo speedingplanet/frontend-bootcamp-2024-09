@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { useTodosDispatch } from './todos-hooks';
-import { saveTodo } from './todos-slice';
+import React, { useContext, useState } from 'react';
+import { DispatchContext } from './TodosContextContainer';
 
-export default function AddTask() {
+export default function AddTodo() {
 	const [text, setText] = useState('');
-	const dispatch = useTodosDispatch();
+	const dispatch = useContext(DispatchContext);
 
 	return (
 		<div className="row mb-4">
 			<div className="col">
 				<input
-					placeholder="Add task"
+					placeholder="Add todo"
 					className="form-control"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
@@ -21,7 +20,7 @@ export default function AddTask() {
 					className="btn btn-primary btn-small"
 					onClick={() => {
 						setText('');
-						dispatch(saveTodo(text));
+						dispatch!({ type: 'todos/add', text });
 					}}
 				>
 					Add

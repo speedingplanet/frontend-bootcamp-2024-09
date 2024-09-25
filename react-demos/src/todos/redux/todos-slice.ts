@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { dao } from './todos-dao';
-import { Task } from '../tasks';
+import { Todo } from '../todos';
 
 let nextId = 10;
-const initialState: Array<Task> = [];
+const initialState: Array<Todo> = [];
 
 export const fetchAllTodos = createAsyncThunk('todos/fetchAllTodos', async () => {
 	const todos = await dao.fetchTodos();
@@ -26,7 +26,7 @@ const todosSlice = createSlice({
 				done: false,
 			});
 		},
-		changeTodo: (state, action: PayloadAction<Task>) => {
+		changeTodo: (state, action: PayloadAction<Todo>) => {
 			return state.map((t) => {
 				if (t.id === action.payload.id) {
 					return action.payload;
@@ -38,7 +38,7 @@ const todosSlice = createSlice({
 		deleteTodo: (state, action: PayloadAction<number>) => {
 			return state.filter((t) => t.id !== action.payload);
 		},
-		populateTodos: (state, action: PayloadAction<Array<Task>>) => {
+		populateTodos: (state, action: PayloadAction<Array<Todo>>) => {
 			return [...action.payload];
 		},
 	},

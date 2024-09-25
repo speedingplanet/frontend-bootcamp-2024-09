@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { DispatchContext } from './TodosContextContainer';
+import React, { useState } from 'react';
 
-export default function AddTask() {
+interface AddTodoProps {
+	onAddTodo: (text: string) => void;
+}
+
+export default function AddTodo({ onAddTodo }: AddTodoProps) {
 	const [text, setText] = useState('');
-	const dispatch = useContext(DispatchContext);
-
 	return (
 		<div className="row mb-4">
 			<div className="col">
 				<input
-					placeholder="Add task"
+					placeholder="Add todo"
 					className="form-control"
 					value={text}
 					onChange={(e) => setText(e.target.value)}
@@ -19,8 +20,8 @@ export default function AddTask() {
 				<button
 					className="btn btn-primary btn-small"
 					onClick={() => {
+						onAddTodo(text);
 						setText('');
-						dispatch!({ type: 'todos/add', text });
 					}}
 				>
 					Add

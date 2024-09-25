@@ -1,42 +1,32 @@
-import React, { useContext, useState } from 'react';
-import '../plain/TaskDisplay.css';
-import { DispatchContext } from './TodosContextContainer';
+import React, { useState } from 'react';
+import './TodoDisplay.css';
+import { Todo } from '../todos';
 
-export interface Task {
-	id: number;
-	text: string;
-	done: boolean;
+export interface TodoDisplayProps {
+	todo: Todo;
+	onChangeTodo: (todo: Todo) => void;
+	onDeleteTodo: (todoId: number) => void;
 }
 
-export interface TaskDisplayProps {
-	task: Task;
-}
-
-export default function TaskDisplay({ task }: TaskDisplayProps) {
+export default function TodoDisplay({ todo, onChangeTodo, onDeleteTodo }: TodoDisplayProps) {
 	const [isEditing, setIsEditing] = useState(false);
-	const dispatch = useContext(DispatchContext);
-
-	if (dispatch === null) throw Error('dispatch is null?!');
 
 	// Either the label or the form field
-	let taskContent;
+	let todoContent;
 
 	// Edit or Save
 	let actionButton;
 
 	if (isEditing) {
-		taskContent = (
+		todoContent = (
 			<div className="me-2">
 				<input
 					type="text"
-					value={task.text}
+					value={todo.text}
 					onChange={(e) => {
-						dispatch({
-							type: 'todos/change',
-							task: {
-								...task,
-								text: e.target.value,
-							},
+						onChangeTodo({
+							...todo,
+							text: e.target.value,
 						});
 					}}
 				/>
@@ -53,13 +43,13 @@ export default function TaskDisplay({ task }: TaskDisplayProps) {
 			</div>
 		);
 	} else {
-		taskContent = (
+		todoContent = (
 			<div>
 				<label
-					htmlFor={`task-${task.id}`}
+					htmlFor={`todo-${todo.id}`}
 					className="form-check-label"
 				>
-					{task.text}
+					{todo.text}
 				</label>
 			</div>
 		);
@@ -79,27 +69,24 @@ export default function TaskDisplay({ task }: TaskDisplayProps) {
 			<div className="form-check me-1 align-self-center">
 				<input
 					type="checkbox"
-					id={`task-${task.id}`}
+					id={`todo-${todo.id}`}
 					className="form-check-input"
-					checked={task.done}
+					checked={todo.done}
 					onChange={(e) => {
-						dispatch({
-							type: 'todos/change',
-							task: {
-								...task,
-								done: e.target.checked,
-							},
+						onChangeTodo({
+							...todo,
+							done: e.target.checked,
 						});
 					}}
 				/>
-				{taskContent}
+				{todoContent}
 			</div>
 			{actionButton}
 
 			<div>
 				<button
 					className="btn btn-danger btn-small btn-really-small"
-					onClick={() => dispatch({ type: 'todos/delete', taskId: task.id })}
+					onClick={() => onDeleteTodo(todo.id)}
 				>
 					Delete
 				</button>

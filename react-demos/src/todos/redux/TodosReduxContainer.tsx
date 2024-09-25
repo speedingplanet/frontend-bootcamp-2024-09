@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './todos-store';
-import AddTask from './AddReduxTask';
-import TaskList from './TaskReduxList';
+import AddTodo from './AddReduxTodo';
+import TodoList from './TodoReduxList';
 
 const TodosReduxContainer = () => {
 	return (
@@ -13,8 +13,8 @@ const TodosReduxContainer = () => {
 						<h3>Todos (context and reducer version)</h3>
 					</div>
 				</header>
-				<AddTask />
-				<TaskList />
+				<AddTodo />
+				<TodoList />
 			</section>
 		</Provider>
 	);

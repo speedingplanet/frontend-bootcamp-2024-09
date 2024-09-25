@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
-import '../plain/TaskDisplay.css';
-import { useDispatch } from 'react-redux';
-import { changeTodo, deleteTodo } from './todos-slice';
-import { Task } from '../tasks';
+import React, { useContext, useState } from 'react';
+import '../plain/TodoDisplay.css';
+import { DispatchContext } from './TodosContextContainer';
 
-export default function TaskDisplay({ task }: { task: Task }) {
+export interface Todo {
+	id: number;
+	text: string;
+	done: boolean;
+}
+
+export interface TodoDisplayProps {
+	todo: Todo;
+}
+
+export default function TodoDisplay({ todo }: TodoDisplayProps) {
 	const [isEditing, setIsEditing] = useState(false);
-	const [localTaskText, setLocalTaskText] = useState(task.text);
-	const dispatch = useDispatch();
+	const dispatch = useContext(DispatchContext);
+
+	if (dispatch === null) throw Error('dispatch is null?!');
 
 	// Either the label or the form field
-	let taskContent;
+	let todoContent;
 
 	// Edit or Save
 	let actionButton;
 
 	if (isEditing) {
-		taskContent = (
+		todoContent = (
 			<div className="me-2">
 				<input
 					type="text"
-					value={localTaskText}
+					value={todo.text}
 					onChange={(e) => {
-						setLocalTaskText(e.target.value);
+						dispatch({
+							type: 'todos/change',
+							todo: {
+								...todo,
+								text: e.target.value,
+							},
+						});
 					}}
 				/>
 			</div>
@@ -31,23 +46,20 @@ export default function TaskDisplay({ task }: { task: Task }) {
 			<div>
 				<button
 					className="btn btn-secondary btn-small btn-really-small"
-					onClick={() => {
-						setIsEditing(false);
-						dispatch(changeTodo({ ...task, text: localTaskText }));
-					}}
+					onClick={() => setIsEditing(false)}
 				>
 					Save
 				</button>
 			</div>
 		);
 	} else {
-		taskContent = (
+		todoContent = (
 			<div>
 				<label
-					htmlFor={`task-${task.id}`}
+					htmlFor={`todo-${todo.id}`}
 					className="form-check-label"
 				>
-					{task.text}
+					{todo.text}
 				</label>
 			</div>
 		);
@@ -67,26 +79,27 @@ export default function TaskDisplay({ task }: { task: Task }) {
 			<div className="form-check me-1 align-self-center">
 				<input
 					type="checkbox"
-					id={`task-${task.id}`}
+					id={`todo-${todo.id}`}
 					className="form-check-input"
-					checked={task.done}
+					checked={todo.done}
 					onChange={(e) => {
-						dispatch(
-							changeTodo({
-								...task,
+						dispatch({
+							type: 'todos/change',
+							todo: {
+								...todo,
 								done: e.target.checked,
-							})
-						);
+							},
+						});
 					}}
 				/>
-				{taskContent}
+				{todoContent}
 			</div>
 			{actionButton}
 
 			<div>
 				<button
 					className="btn btn-danger btn-small btn-really-small"
-					onClick={() => dispatch(deleteTodo(task.id))}
+					onClick={() => dispatch({ type: 'todos/delete', todoId: todo.id })}
 				>
 					Delete
 				</button>

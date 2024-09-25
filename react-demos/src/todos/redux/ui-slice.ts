@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Task } from '../tasks';
+import { Todo } from '../todos';
 
 /*
 - Component loads. Use clicks on "text", what do we dispatch?
@@ -24,7 +24,7 @@ dispatch(null) // Implies direction of null as well
 */
 
 type SortDirection = 'asc' | 'desc' | null;
-type TodoFields = keyof Omit<Task, 'id'> | null;
+type TodoFields = keyof Omit<Todo, 'id'> | null;
 
 interface UiState {
 	sortColumn: TodoFields;

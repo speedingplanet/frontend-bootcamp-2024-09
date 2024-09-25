@@ -1,26 +1,26 @@
 import React from 'react';
-import TaskDisplay from './TaskReduxDisplay';
-import '../plain/TaskDisplay.css';
+import TodoDisplay from './TodoReduxDisplay';
+import '../plain/TodoDisplay.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderBy } from 'lodash';
 import { RootState } from './todos-store';
 import { sortTodos } from './ui-slice';
 
-export default function TaskList() {
-	const tasks = useSelector((state: RootState) => state.todos);
+export default function TodoList() {
+	const todos = useSelector((state: RootState) => state.todos);
 	const sortConfig = useSelector((state: RootState) => state.ui);
 
 	const dispatch = useDispatch();
 
-	let displayTasks = tasks;
+	let displayTodos = todos;
 
 	if (sortConfig.sortColumn !== null) {
-		displayTasks = orderBy(tasks, sortConfig.sortColumn, sortConfig.sortDirection!);
+		displayTodos = orderBy(todos, sortConfig.sortColumn, sortConfig.sortDirection!);
 	}
 
 	return (
 		<>
-			<h4>Tasks</h4>
+			<h4>Todos</h4>
 			<ul className="list-inline">
 				<li className="list-inline-item">
 					<button
@@ -48,9 +48,9 @@ export default function TaskList() {
 				</li>
 			</ul>
 			<ul>
-				{displayTasks.map((task) => (
-					<li key={task.id}>
-						<TaskDisplay task={task} />
+				{displayTodos.map((todo) => (
+					<li key={todo.id}>
+						<TodoDisplay todo={todo} />
 					</li>
 				))}
 			</ul>

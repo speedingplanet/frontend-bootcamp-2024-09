@@ -1,19 +1,19 @@
 import React, { Reducer, createContext, useReducer } from 'react';
-import AddTask from './AddContextTask';
-import TaskList from './TaskContextList';
-import { Task, TodoAction } from '../tasks';
+import AddTodo from './AddContextTodo';
+import TodoList from './TodoContextList';
+import { Todo, TodoAction } from '../todos';
 
-export const TasksContext = createContext<Array<Task> | null>(null);
+export const TodosContext = createContext<Array<Todo> | null>(null);
 export const DispatchContext = createContext<React.Dispatch<TodoAction> | null>(null);
 
 let nextId = 4;
-const initialTasks: Array<Task> = [
+const initialTodos: Array<Todo> = [
 	{ id: 1, text: 'Groceries', done: false },
 	{ id: 2, text: 'Change oil', done: true },
 	{ id: 3, text: 'Clean kitchen table', done: false },
 ];
 
-const reducer: Reducer<Array<Task>, TodoAction> = (state, action) => {
+const reducer: Reducer<Array<Todo>, TodoAction> = (state, action) => {
 	switch (action.type) {
 		case 'todos/add':
 			return [
@@ -26,35 +26,35 @@ const reducer: Reducer<Array<Task>, TodoAction> = (state, action) => {
 			];
 		case 'todos/change':
 			return state.map((t) => {
-				if (t.id === action.task.id) {
-					return action.task;
+				if (t.id === action.todo.id) {
+					return action.todo;
 				} else {
 					return t;
 				}
 			});
 		case 'todos/delete':
-			return state.filter((t) => t.id !== action.taskId);
+			return state.filter((t) => t.id !== action.todoId);
 		default:
 			throw Error(`No case found!`);
 	}
 };
 
 const TodosContextContainer = () => {
-	const [tasks, dispatch] = useReducer(reducer, initialTasks);
+	const [todos, dispatch] = useReducer(reducer, initialTodos);
 
 	return (
 		<DispatchContext.Provider value={dispatch}>
-			<TasksContext.Provider value={tasks}>
+			<TodosContext.Provider value={todos}>
 				<section>
 					<header className="row mb-2">
 						<div className="col">
 							<h3>Todos (context and reducer version)</h3>
 						</div>
 					</header>
-					<AddTask />
-					<TaskList />
+					<AddTodo />
+					<TodoList />
 				</section>
-			</TasksContext.Provider>
+			</TodosContext.Provider>
 		</DispatchContext.Provider>
 	);
 };
