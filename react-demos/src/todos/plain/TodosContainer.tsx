@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import AddTodo from './AddTodo';
-import TodoList from './TodoList';
-import { Todo } from '../todos';
+import { useState } from 'react';
+import AddTodo from '../common/AddTodo';
+import TodoList from '../common/TodoList';
+import { Todo } from '../todos-types';
 
 let nextId = 4;
 const initialTodos: Array<Todo> = [

@@ -1,8 +1,9 @@
 import React, { Reducer, createContext, useReducer } from 'react';
-import AddTodo from './AddContextTodo';
-import TodoList from './TodoContextList';
-import { Todo, TodoAction } from '../todos';
+import AddTodoContext from './AddTodoContext';
+import TodoListContext from './TodoListContext';
+import { Todo, TodoAction } from '../todos-types';
 
+// Usually these are in a separate file
 export const TodosContext = createContext<Array<Todo> | null>(null);
 export const DispatchContext = createContext<React.Dispatch<TodoAction> | null>(null);
 
@@ -51,8 +52,8 @@ const TodosContextContainer = () => {
 							<h3>Todos (context and reducer version)</h3>
 						</div>
 					</header>
-					<AddTodo />
-					<TodoList />
+					<AddTodoContext />
+					<TodoListContext />
 				</section>
 			</TodosContext.Provider>
 		</DispatchContext.Provider>

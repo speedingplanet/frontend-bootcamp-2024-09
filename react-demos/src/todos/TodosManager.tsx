@@ -9,16 +9,22 @@ const TodosManager = () => {
 	return (
 		<>
 			<div className="row">
-				<div className="col-3">
+				<div className="col-4">
 					<ul className="list-unstyled">
 						<li>
-							<NavLink to="plain">Plain</NavLink>
+							<NavLink to="plain">
+								With <code>useState</code>
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to="reducer">Reducer</NavLink>
+							<NavLink to="reducer">
+								With <code>useReducer</code>
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to="context-reducer">Reducer with Context</NavLink>
+							<NavLink to="context-reducer">
+								With <code>useReducer</code> and <code>useContext</code>
+							</NavLink>
 						</li>
 						<li>
 							<NavLink to="redux">Using Redux</NavLink>

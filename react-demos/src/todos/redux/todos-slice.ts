@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { dao } from './todos-dao';
-import { Todo } from '../todos';
+import { Todo } from '../todos-types';
 
 let nextId = 10;
 const initialState: Array<Todo> = [];

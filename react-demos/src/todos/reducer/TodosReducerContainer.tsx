@@ -1,7 +1,7 @@
 import React, { Reducer, useReducer } from 'react';
-import AddTodo from '../plain/AddTodo';
-import TodoList from '../plain/TodoList';
-import { Todo, TodoAction } from '../todos';
+import AddTodo from '../common/AddTodo';
+import TodoList from '../common/TodoList';
+import { Todo, TodoAction } from '../todos-types';
 
 let nextId = 4;
 const initialTodos: Array<Todo> = [
@@ -46,7 +46,10 @@ const TodosReducerContainer = () => {
 					<h3>Todos (reducer version)</h3>
 				</div>
 			</header>
+			{/* Alternatively, we could pass the dispatch function down to AddTodo */}
 			<AddTodo onAddTodo={(text) => dispatch({ type: 'todos/add', text })} />
+
+			{/* Same here, pass dispatch down through TodoList and its descendants */}
 			<TodoList
 				todos={todos}
 				onChangeTodo={(todo) => dispatch({ type: 'todos/change', todo })}

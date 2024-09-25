@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../plain/TodoDisplay.css';
+import '../common/TodoDisplay.css';
 import { useDispatch } from 'react-redux';
 import { changeTodo, deleteTodo } from './todos-slice';
-import { Todo } from '../todos';
+import { Todo } from '../todos-types';
 
 export default function TodoDisplay({ todo }: { todo: Todo }) {
 	const [isEditing, setIsEditing] = useState(false);

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface AddTodoProps {
 	onAddTodo: (text: string) => void;
 }
 
 export default function AddTodo({ onAddTodo }: AddTodoProps) {
+	// Local state, used only in this component
 	const [text, setText] = useState('');
 	return (
 		<div className="row mb-4">

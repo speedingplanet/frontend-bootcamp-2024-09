@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoDisplay from './TodoReduxDisplay';
-import '../plain/TodoDisplay.css';
+import '../common/TodoDisplay.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { orderBy } from 'lodash';
 import { RootState } from './todos-store';

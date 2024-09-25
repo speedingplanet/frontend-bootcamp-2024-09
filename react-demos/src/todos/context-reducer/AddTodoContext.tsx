@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { DispatchContext } from './TodosContextContainer';
 
-export default function AddTodo() {
+export default function AddTodoContext() {
 	const [text, setText] = useState('');
 	const dispatch = useContext(DispatchContext);
 

@@ -21,7 +21,7 @@ import ReduxDemosManager from './redux/ReduxDemosManager';
 
 function App() {
 	return (
-		<main className="container">
+		<main className="container-fluid">
 			<header className="row">
 				<div className="col">
 					<h1>React Demos</h1>
@@ -30,7 +30,7 @@ function App() {
 			</header>
 			<BrowserRouter>
 				<div className="row">
-					<div className="col-3">
+					<div className="col-4">
 						<ul className="list-unstyled">
 							<li>
 								<NavLink to="event-handling">Event Handling</NavLink>
@@ -77,6 +77,10 @@ function App() {
 					</div>
 					<div className="col">
 						<Routes>
+							<Route
+								path="/"
+								element={<p>Choose a demo</p>}
+							/>
 							<Route
 								path="/event-handling"
 								element={<EventHandling />}

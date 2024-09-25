@@ -1,4 +1,4 @@
-import { InputTodo } from '../todos';
+import { InputTodo } from '../todos-types';
 
 let baseUrl = 'http://localhost:8000/todos';
 

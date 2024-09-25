@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Todo } from '../todos';
+import { Todo } from '../todos-types';
 
 /*
 - Component loads. Use clicks on "text", what do we dispatch?

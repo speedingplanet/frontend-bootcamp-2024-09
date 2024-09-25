@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "2.0.0",
 	"type": "module",
-  "author": "John Paxton <pax@speedingplanet.com>",
+	"author": "John Paxton <pax@speedingplanet.com>",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -16,14 +16,13 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"@tanstack/react-query": "^5.51.16",
 		"axios": "^1.6.8",
+		"classnames": "^2.5.1",
 		"date-fns": "^3.6.0",
 		"graphql": "^16.9.0",
 		"query-string": "^9.0.0"
 	},
 	"devDependencies": {
-		"@tanstack/eslint-plugin-query": "^5.51.15",
 		"@types/redux-logger": "^3.0.13",
 		"redux-logger": "^3.0.6"
 	}
