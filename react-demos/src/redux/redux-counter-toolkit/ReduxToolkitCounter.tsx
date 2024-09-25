@@ -6,16 +6,13 @@ import { increment, decrement, CounterState } from './counter-slice';
 const ReduxToolkitCounter = () => {
 	const dispatch = useDispatch();
 
-	// This is a simplistic use of useSelector
+	// This is a simplistic use of useSelector,
+	// but subscribes this component to state updated
 	const count = useSelector((state: CounterState) => state.counter);
-
-	const dispatchIncrement = () => {
-		dispatch(increment());
-	};
 
 	return (
 		<Counter
-			increment={dispatchIncrement}
+			increment={() => dispatch(increment())}
 			decrement={() => dispatch(decrement())}
 			value={count}
 		/>

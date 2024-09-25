@@ -1,4 +1,4 @@
-import { createSlice, configureStore, combineReducers } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const counterSlice = createSlice({
 	name: 'counter',
@@ -10,13 +10,7 @@ const counterSlice = createSlice({
 });
 
 const { actions } = counterSlice;
+
+// Action creators, they return {type: 'counter/increment'}
 export const { increment, decrement } = actions;
-
-export const store = configureStore({
-	reducer: combineReducers({
-		counter: counterSlice.reducer,
-	}),
-});
-
-export type CounterState = ReturnType<typeof store.getState>;
-export type CounterDispatch = typeof store.dispatch;
+export const reducer = counterSlice.reducer;

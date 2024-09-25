@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './counter-slice';
+import { store } from './configure-counter-store';
 import ReduxToolkitCounter from './ReduxToolkitCounter';
 
 export default function ReduxToolkitContainer() {
