@@ -11,13 +11,11 @@ function IterativeContent() {
 			<div className="col">
 				<h3>Countries ranked by population</h3>
 				<ul>
-					{countries.map((country) => {
-						return (
-							<li key={country.id}>
-								{country.country}: {formatter.format(country.pop2022)}
-							</li>
-						);
-					})}
+					{countries.map((country) => (
+						<li key={country.id}>
+							{country.country}: {formatter.format(country.pop2022)}
+						</li>
+					))}
 				</ul>
 			</div>
 		</section>

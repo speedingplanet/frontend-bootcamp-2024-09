@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import classNames from 'classnames';
 import React from 'react';
-import { LabelValues } from './calculator-types';
+import { LabelValues, MathOperator } from './calculator-types';
+import { CalculatorDataContext } from './CalculatorApp';
 
 interface CalculatorButtonProps extends React.ComponentPropsWithoutRef<'button'> {
 	label: LabelValues;
@@ -18,10 +20,16 @@ export default function CalculatorButton({
 	className,
 	...props
 }: CalculatorButtonProps) {
+	const currentState = useContext(CalculatorDataContext);
+	let classes = ['calculator-button'];
+	if (currentState?.operationStack && currentState.operationStack[1] === label) {
+		classes.push('active-button');
+	}
+
 	return (
 		<button
 			{...props}
-			className={classNames(className, 'calculator-button')}
+			className={classNames(className, ...classes)}
 			onClick={() => onButtonClick(label)}
 		>
 			{label}
