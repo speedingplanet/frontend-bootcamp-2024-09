@@ -3,8 +3,9 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { connect, Provider } from 'react-redux';
-import { CounterProps, CounterState } from '../demo-types';
+import { CounterState } from '../demo-types';
 import { Action, Dispatch } from '@reduxjs/toolkit';
+import Counter from './Counter';
 
 const initialState = { counter: 1 };
 
@@ -31,48 +32,6 @@ const reducer = (state = initialState, action: Action) => {
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(logger)));
 
-function Counter({ value, increment, decrement }: CounterProps) {
-	return (
-		<div className="card">
-			<div className="card-header bg-secondary">Redux-enabled counter</div>
-			<div className="card-body">
-				<div className="text-center mb-4">
-					<h3>{value}</h3>
-				</div>
-				<div className="text-center">
-					<button
-						className="btn btn-danger"
-						onClick={decrement}
-					>
-						<span
-							role="img"
-							aria-label="heavy minus sign"
-						>
-							➖
-						</span>
-						<br />
-						<span>Decrement</span>
-					</button>
-					&nbsp;
-					<button
-						className="btn btn-success"
-						onClick={increment}
-					>
-						<span
-							role="img"
-							aria-label="heavy plus sign"
-						>
-							➕
-						</span>
-						<br />
-						<span>Increment</span>
-					</button>
-				</div>
-			</div>
-		</div>
-	);
-}
-
 const mapStateToProps = (state: CounterState) => ({
 	value: state.counter,
 });
@@ -84,7 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
-export default function ReduxContainer() {
+export default function SingleFileReduxCounter() {
 	return (
 		<Provider store={store}>
 			<ConnectedCounter />

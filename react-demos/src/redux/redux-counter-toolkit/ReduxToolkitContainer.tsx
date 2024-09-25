@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './counter-slice';
-import ReduxCounter from './ReduxCounter';
+import ReduxToolkitCounter from './ReduxToolkitCounter';
 
-export default function ReduxContainer() {
+export default function ReduxToolkitContainer() {
 	return (
 		<Provider store={store}>
-			<ReduxCounter />
+			<ReduxToolkitCounter />
 		</Provider>
 	);
 }

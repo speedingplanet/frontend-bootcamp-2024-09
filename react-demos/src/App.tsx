@@ -4,9 +4,6 @@ import EffectHook from './effect-hook/EffectHook';
 import HigherOrderComponent from './higher-order-component/HigherOrderComponent';
 import Memoization from './memo-demo/Memoization';
 import DynamicComponents from './dynamic-components/DynamicComponents';
-import ReduxCounter from './redux-counter/ReduxCounter';
-import ReduxCounterBP from './redux-counter-best/ReduxContainer';
-import ReduxToolkitCounter from './redux-counter-tk/ReduxContainer';
 import VisibilityDemo from './visibility-tests/VisibilityDemo';
 import BasicComponent from './testing/BasicComponent';
 import FormDataManager from './form-data/FormDataManager';
@@ -20,6 +17,7 @@ import EventHandling from './event-handling/EventHandling';
 import ConditionalDisplay from './conditional-display/ConditionalDisplay';
 import TodosManager from './todos/TodosManager';
 import RoutingManager from './routing/RoutingManager';
+import ReduxDemosManager from './redux/ReduxDemosManager';
 
 function App() {
 	return (
@@ -53,6 +51,9 @@ function App() {
 								<NavLink to="iterative-content">Iterative content</NavLink>
 							</li>
 							<li>
+								<NavLink to="effect-hook">Effect Hook</NavLink>
+							</li>
+							<li>
 								<NavLink to="routing">Routing</NavLink>
 							</li>
 							<li>
@@ -64,28 +65,10 @@ function App() {
 								</NavLink>
 							</li>
 							<li>
+								<NavLink to="redux">Redux Demos</NavLink>
+							</li>
+							<li>
 								<NavLink to="apollo">Apollo Demos</NavLink>
-							</li>
-							<li>
-								<NavLink to="effect-hook">Effect Hook</NavLink>
-							</li>
-							<li>
-								<NavLink to="higher-order-component">Higher Order Component</NavLink>
-							</li>
-							<li>
-								<NavLink to="memoization">Memoization</NavLink>
-							</li>
-							<li>
-								<NavLink to="dynamic-components">DynamicComponents</NavLink>
-							</li>
-							<li>
-								<NavLink to="redux-counter">Redux Counter</NavLink>
-							</li>
-							<li>
-								<NavLink to="redux-counter-best-practices">Redux Counter (best practices)</NavLink>
-							</li>
-							<li>
-								<NavLink to="redux-toolkit-counter">Redux Counter (using the toolkit)</NavLink>
 							</li>
 							<li>
 								<NavLink to="todos">To-dos (various implementations)</NavLink>
@@ -147,16 +130,8 @@ function App() {
 								element={<DynamicComponents />}
 							/>
 							<Route
-								path="/redux-counter"
-								element={<ReduxCounter />}
-							/>
-							<Route
-								path="/redux-counter-best-practices"
-								element={<ReduxCounterBP />}
-							/>
-							<Route
-								path="/redux-toolkit-counter"
-								element={<ReduxToolkitCounter />}
+								path="/redux/*"
+								element={<ReduxDemosManager />}
 							/>
 							<Route
 								path="/testable-component"

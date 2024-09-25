@@ -1,4 +1,3 @@
-import React from 'react';
 import { CounterProps } from '../demo-types';
 
 export default function Counter({ value, increment, decrement }: CounterProps) {

@@ -1,10 +1,12 @@
 import React from 'react';
-import Counter from './Counter';
+import Counter from '../Counter';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment, decrement, CounterState } from './counter-slice';
 
-const BetterReduxCounter = () => {
+const ReduxToolkitCounter = () => {
 	const dispatch = useDispatch();
+
+	// This is a simplistic use of useSelector
 	const count = useSelector((state: CounterState) => state.counter);
 
 	const dispatchIncrement = () => {
@@ -20,4 +22,4 @@ const BetterReduxCounter = () => {
 	);
 };
 
-export default BetterReduxCounter;
+export default ReduxToolkitCounter;
