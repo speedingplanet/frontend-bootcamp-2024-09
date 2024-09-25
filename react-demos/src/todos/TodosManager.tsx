@@ -4,6 +4,7 @@ import TodosContainer from './plain/TodosContainer';
 import TodosContainerReducer from './reducer/TodosContainerReducer';
 import TodosContainerContext from './context-reducer/TodosContainerContext';
 import TodosContainerRedux from './redux/TodosContainerRedux';
+import TodosContainerCustom from './custom-redux/TodosContainerCustom';
 
 const TodosManager = () => {
 	return (
@@ -29,6 +30,9 @@ const TodosManager = () => {
 						<li>
 							<NavLink to="redux">Using Redux</NavLink>
 						</li>
+						<li>
+							<NavLink to="redux-custom">Using Custom Redux</NavLink>
+						</li>
 					</ul>
 				</div>
 				<div className="col">
@@ -48,6 +52,10 @@ const TodosManager = () => {
 						<Route
 							path="redux"
 							element={<TodosContainerRedux />}
+						/>
+						<Route
+							path="redux-custom"
+							element={<TodosContainerCustom />}
 						/>
 					</Routes>
 				</div>

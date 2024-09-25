@@ -7,9 +7,9 @@ store.subscribe(() => {
 	console.log('SUBSCRIBED: Updated state: ', store.getState());
 });
 
-store.dispatch(addTodo({ text: 'Test todo 1', done: false, id: 1 }));
-store.dispatch(addTodo({ text: 'Test todo 2', done: false, id: 2 }));
-store.dispatch(addTodo({ text: 'Test todo 3', done: false, id: 3 }));
+store.dispatch(addTodo({ text: 'Test todo 1', done: false }));
+store.dispatch(addTodo({ text: 'Test todo 2', done: false }));
+store.dispatch(addTodo({ text: 'Test todo 3', done: false }));
 
 // console.log('State after three addTodo() calls: ', store.getState());
 console.log('Deleting todo #2');
