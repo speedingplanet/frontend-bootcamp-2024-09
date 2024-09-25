@@ -36,7 +36,7 @@ const reducer: Reducer<Array<Todo>, TodoAction> = (state, action) => {
 	}
 };
 
-const TodosReducerContainer = () => {
+const TodosContainerReducer = () => {
 	const [todos, dispatch] = useReducer(reducer, initialTodos);
 
 	return (
@@ -59,4 +59,4 @@ const TodosReducerContainer = () => {
 	);
 };
 
-export default TodosReducerContainer;
+export default TodosContainerReducer;

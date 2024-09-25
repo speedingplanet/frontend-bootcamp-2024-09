@@ -1,25 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../common/TodoDisplay.css';
-import { DispatchContext } from './TodosContainerContext';
+import { changeTodo, deleteTodo } from './todos-slice';
+import { Todo } from '../todos-types';
+import { useTodosDispatch } from './todos-hooks';
 import ActionButton from '../common/ActionButton';
-import EditTodoContext from './EditTodoContext';
 import TodoDetails from '../common/TodoDetails';
 
-export interface Todo {
-	id: number;
-	text: string;
-	done: boolean;
-}
-
-export interface TodoDisplayProps {
-	todo: Todo;
-}
-
-export default function TodoDisplay({ todo }: TodoDisplayProps) {
+export default function TodoDisplayRedux({ todo }: { todo: Todo }) {
 	const [isEditing, setIsEditing] = useState(false);
-	const dispatch = useContext(DispatchContext);
+	const [localTodoText, setLocalTodoText] = useState(todo.text);
+	const dispatch = useTodosDispatch();
 
-	if (dispatch === null) throw Error('dispatch is null?!');
 	return (
 		<div className="d-flex mb-1">
 			<div className="form-check me-1 align-self-center">
@@ -29,16 +20,27 @@ export default function TodoDisplay({ todo }: TodoDisplayProps) {
 					className="form-check-input"
 					checked={todo.done}
 					onChange={(e) => {
-						dispatch({
-							type: 'todos/change',
-							todo: {
+						dispatch(
+							changeTodo({
 								...todo,
 								done: e.target.checked,
-							},
-						});
+							})
+						);
 					}}
 				/>
-				{isEditing ? <EditTodoContext todo={todo} /> : <TodoDetails todo={todo} />}
+				{isEditing ? (
+					<div className="me-2">
+						<input
+							type="text"
+							value={localTodoText}
+							onChange={(e) => {
+								setLocalTodoText(e.target.value);
+							}}
+						/>
+					</div>
+				) : (
+					<TodoDetails todo={todo} />
+				)}
 			</div>
 			{isEditing ? (
 				<ActionButton
@@ -59,7 +61,7 @@ export default function TodoDisplay({ todo }: TodoDisplayProps) {
 			<div>
 				<button
 					className="btn btn-danger btn-small btn-really-small"
-					onClick={() => dispatch({ type: 'todos/delete', todoId: todo.id })}
+					onClick={() => dispatch(deleteTodo(todo.id))}
 				>
 					Delete
 				</button>

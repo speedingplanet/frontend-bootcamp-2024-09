@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import TodosContainer from './plain/TodosContainer';
-import TodosReducerContainer from './reducer/TodosReducerContainer';
-import TodosContextContainer from './context-reducer/TodosContextContainer';
-import TodosReduxContainer from './redux/TodosReduxContainer';
+import TodosContainerReducer from './reducer/TodosContainerReducer';
+import TodosContainerContext from './context-reducer/TodosContainerContext';
+import TodosContainerRedux from './redux/TodosContainerRedux';
 
 const TodosManager = () => {
 	return (
@@ -39,15 +39,15 @@ const TodosManager = () => {
 						/>
 						<Route
 							path="reducer"
-							element={<TodosReducerContainer />}
+							element={<TodosContainerReducer />}
 						/>
 						<Route
 							path="context-reducer"
-							element={<TodosContextContainer />}
+							element={<TodosContainerContext />}
 						/>
 						<Route
 							path="redux"
-							element={<TodosReduxContainer />}
+							element={<TodosContainerRedux />}
 						/>
 					</Routes>
 				</div>

@@ -9,20 +9,6 @@ export const store = configureStore({
 	}),
 });
 
-/*
-try {
-	let response = await fetch('http://localhost:8000/todos');
-	if (response.ok) {
-		let results = await response.json();
-		store.dispatch(populateTodos(results))
-	} else {
-		throw Error(`Bad response: ${response.status}`);
-	}
-} catch (error) {
-	console.log('todos-dao error:', error);
-}
-*/
-
 store.dispatch(fetchAllTodos());
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -10,7 +10,7 @@ export default function TodoList({ todos, onChangeTodo, onDeleteTodo }: TodoList
 	return (
 		<>
 			<h4>Todos</h4>
-			<ul>
+			<ul className="list-unstyled">
 				{todos.map((todo) => (
 					<li key={todo.id}>
 						<TodoDisplay

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import TodoDisplayContext from './TodoDisplayContext';
-import { TodosContext } from './TodosContextContainer';
+import { TodosContext } from './TodosContainerContext';
 
 export default function TodoListContext() {
 	let todos = useContext(TodosContext);
@@ -8,7 +8,7 @@ export default function TodoListContext() {
 	return (
 		<>
 			<h4>Todos</h4>
-			<ul>
+			<ul className="list-unstyled">
 				{todos!.map((todo) => (
 					<li key={todo.id}>
 						<TodoDisplayContext todo={todo} />

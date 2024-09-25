@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Todo } from '../todos-types';
-import { DispatchContext } from './TodosContextContainer';
+import { DispatchContext } from './TodosContainerContext';
 
 interface EditTodoProps {
 	todo: Todo;

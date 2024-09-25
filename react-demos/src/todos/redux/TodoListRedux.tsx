@@ -1,22 +1,21 @@
-import React from 'react';
-import TodoDisplay from './TodoReduxDisplay';
+import TodoDisplayRedux from './TodoDisplayRedux';
 import '../common/TodoDisplay.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { orderBy } from 'lodash';
 import { RootState } from './todos-store';
 import { sortTodos } from './ui-slice';
+import { useTodosDispatch } from './todos-hooks';
 
-export default function TodoList() {
-	const todos = useSelector((state: RootState) => state.todos);
-	const sortConfig = useSelector((state: RootState) => state.ui);
+export default function TodoListRedux() {
+	const displayTodos = useSelector(({ todos, ui }: RootState) => {
+		if (ui.sortColumn !== null) {
+			return orderBy(todos, ui.sortColumn, ui.sortDirection!);
+		} else {
+			return todos;
+		}
+	});
 
-	const dispatch = useDispatch();
-
-	let displayTodos = todos;
-
-	if (sortConfig.sortColumn !== null) {
-		displayTodos = orderBy(todos, sortConfig.sortColumn, sortConfig.sortDirection!);
-	}
+	const dispatch = useTodosDispatch();
 
 	return (
 		<>
@@ -47,10 +46,10 @@ export default function TodoList() {
 					</button>
 				</li>
 			</ul>
-			<ul>
+			<ul className="list-unstyled">
 				{displayTodos.map((todo) => (
 					<li key={todo.id}>
-						<TodoDisplay todo={todo} />
+						<TodoDisplayRedux todo={todo} />
 					</li>
 				))}
 			</ul>

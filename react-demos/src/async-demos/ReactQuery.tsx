@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { fetchAllCountries } from './countries-dao';
 import { Country } from '../demo-types';
 
@@ -57,6 +57,7 @@ const RenderQuery = () => {
 					</table>
 				</div>
 			</div>
+			<ReactQueryDevtools initialIsOpen={false} />
 		</>
 	);
 };

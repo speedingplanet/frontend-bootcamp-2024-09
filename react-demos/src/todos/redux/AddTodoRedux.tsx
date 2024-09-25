@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTodosDispatch } from './todos-hooks';
 import { saveTodo } from './todos-slice';
 
-export default function AddTodo() {
+export default function AddTodoRedux() {
 	const [text, setText] = useState('');
 	const dispatch = useTodosDispatch();
 
