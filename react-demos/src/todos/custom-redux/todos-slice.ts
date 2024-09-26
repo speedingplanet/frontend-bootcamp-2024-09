@@ -28,5 +28,7 @@ let todosSlice = createSlice({
 });
 
 const { actions } = todosSlice;
+
+// Action generators, build something like {type: 'todos/addTodo', payload: {...}}
 export const { addTodo, deleteTodo, editTodo } = actions;
 export const reducer = todosSlice.reducer;
