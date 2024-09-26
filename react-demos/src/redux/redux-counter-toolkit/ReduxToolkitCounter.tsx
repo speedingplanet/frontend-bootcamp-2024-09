@@ -1,7 +1,8 @@
 import React from 'react';
 import Counter from '../Counter';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement, CounterState } from './counter-slice';
+import { increment, decrement } from './counter-slice';
+import { CounterState } from './configure-counter-store';
 
 const ReduxToolkitCounter = () => {
 	const dispatch = useDispatch();

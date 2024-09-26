@@ -1,11 +1,9 @@
-import React from 'react';
 import TodoDisplayCustom from './TodoDisplayCustom';
-import { Todo } from '../todos-types';
-import { useSelector } from 'react-redux';
-import { RootState } from './configure-store';
+import { useAppSelector } from './custom-redux-hooks';
 
 export default function TodoListCustom() {
-	let todos = useSelector<RootState, Todo[]>((state) => state.todos);
+	// useAppSelector is already properly typed!
+	let todos = useAppSelector((state) => state.todos);
 
 	return (
 		<>
