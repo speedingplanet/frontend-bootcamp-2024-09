@@ -68,8 +68,7 @@ function App() {
 								<NavLink to="redux">Redux Demos</NavLink>
 							</li>
 							<li>
-								{/* <NavLink to="apollo">Apollo Demos</NavLink> */}
-								Apollo Demos
+								<NavLink to="apollo">Apollo Demos</NavLink>
 							</li>
 							<li>
 								<NavLink to="todos">To-dos (various implementations)</NavLink>
