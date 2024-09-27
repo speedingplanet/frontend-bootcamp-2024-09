@@ -31,8 +31,10 @@ export const resolvers: Resolvers = {
 			return `Hi ${firstName}!`;
 		},
 
-		countries() {
-			return countries;
+		countries(parent, { country }) {
+			if (!country)	return countries;
+
+			return countries.filter(c => c.country === country);
 		},
 
 		students(parent, { country }) {

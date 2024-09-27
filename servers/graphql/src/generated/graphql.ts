@@ -113,6 +113,11 @@ export type Query = {
 };
 
 
+export type QueryCountriesArgs = {
+  country?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryHelloArgs = {
   firstName?: InputMaybe<Scalars['String']['input']>;
 };
@@ -392,7 +397,7 @@ export type InstructorResolvers<ContextType = any, ParentType extends ResolversP
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   classes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Class']>>>, ParentType, ContextType>;
-  countries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Country']>>>, ParentType, ContextType>;
+  countries?: Resolver<Maybe<Array<Maybe<ResolversTypes['Country']>>>, ParentType, ContextType, Partial<QueryCountriesArgs>>;
   courses?: Resolver<Maybe<Array<Maybe<ResolversTypes['Course']>>>, ParentType, ContextType>;
   departments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Department']>>>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<QueryHelloArgs>>;

@@ -854,7 +854,20 @@
           {
             "name": "countries",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "country",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
             "type": {
               "kind": "LIST",
               "name": null,
