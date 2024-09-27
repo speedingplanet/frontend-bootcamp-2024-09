@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+		"strictNullChecks": true,
+    "types": ["node", "mocha"],
+		"sourceMap": true
+  },
+	"include": ["src", "./*.ts"]
+}
